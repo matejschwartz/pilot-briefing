@@ -1,0 +1,45 @@
+<div class="card mt-4">
+  <div class="card-body">
+      <form [formGroup]="briefingForm" (ngSubmit)="formSubmit()" novalidate>
+        
+        <div class="form-group row">
+          <label for="message_types" class="col-sm-4 col-form-label">Messages types</label>
+          <div class="col-sm-8 pt-2" id="message_types">
+            <div class="form-check form-check-inline" formArrayName="types" *ngFor="let type of formControls.types.controls; let i = index">
+              <input class="form-check-input" type="checkbox" name="types" [id]="types[i].value" [formControlName]="i">
+              <label class="form-check-label" [for]="types[i].value">{{ types[i].name }}</label>
+            </div>
+            <small *ngIf="formControls.types.errors?.minSelectedCheckboxes" class="form-text text-danger">
+              At least one message type is required.
+            </small>
+          </div>
+        </div>
+        
+        <div class="form-group row">
+          <label for="airports" class="col-sm-4 col-form-label">Airports</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="airports" placeholder="LZIB LKPR EGLL" formControlName="airports">
+            <small *ngIf="briefingForm.errors?.minFilled && (formControls.airports.touched || formControls.airports.dirty)" class="form-text text-danger">
+              Airports or Countries are required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="countries" class="col-sm-4 col-form-label">Countries</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="countries" placeholder="SQ" formControlName="countries">
+            <small *ngIf="briefingForm.errors?.minFilled && (formControls.countries.touched || formControls.countries.dirty)" class="form-text text-danger">
+              Airports or Countries are required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group text-right">
+          <button type="submit" class="btn btn-success mr-2" [disabled]="briefingForm.invalid">Create briefing</button>
+          <button type="button" class="btn btn-outline-dark" (click)="briefingForm.reset()">Reset</button>
+        </div>
+      </form>
+
+  </div>
+</div>
